@@ -1,5 +1,5 @@
 import CargaDatos from './escenas/cargadatos';
-import Nivel1 from './escenas/nivel1N';
+import Nivel1 from './escenas/nivel1';
 import Menu from './escenas/menu';
 
 const Configuracion = {

@@ -1,5 +1,5 @@
 import Constantes from '../constantes';
-import Nivel1 from '../escenas/nivel1N';
+import Nivel1 from '../escenas/nivel1';
 
 
 export default class Jugador extends Phaser.Physics.Arcade.Sprite {
