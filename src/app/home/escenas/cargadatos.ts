@@ -55,8 +55,8 @@ export default class CargaDatos extends Phaser.Scene {
 
         //Fuente
 
-        //Atlas Jugador
-        this.load.atlas(Constantes.JUGADOR.ID, 'assets/imagenes/jugador/spritesheet.png', 'assets/imagenes/jugador/spritesheet.json');
+        //Atlas Alucard1Walking
+        this.load.atlas(Constantes.JUGADOR.ID, 'assets/imagenes/jugador/Alucard1/Alucard1Walking.png', 'assets/imagenes/jugador/Alucard1/Alucard1Walking.json');
         
         //ATLAS Franky
         this.load.atlas(Constantes.FRANKY.ID,'assets/imagenes/power_up/franky/spritesheet.png', 'assets/imagenes/power_up/franky/sprites.json');

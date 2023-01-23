@@ -52,7 +52,7 @@ const Constantes = {
             SALTAR: 'saltar',
             GOLPEAR: 'golpear'
         }
-    }, 
+    },     
 
     FRANKY:{
         ID: 'power_1',//Nombre de objeto en el tileset

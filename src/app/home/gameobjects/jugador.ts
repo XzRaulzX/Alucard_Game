@@ -1,5 +1,5 @@
 import Constantes from '../constantes';
-import Nivel1 from '../escenas/nivel1';
+import Nivel1 from '../escenas/nivel1N';
 
 
 export default class Jugador extends Phaser.Physics.Arcade.Sprite {
@@ -32,7 +32,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     }
 
     override update() {
-        if (this.cursores.left.isDown) {
+        if (this.cursores.left.isDown) { 
             console.log("Izquierda...");
             this.setVelocityX(this.velocidad * -1);
             this.flipX = true;
