@@ -26,15 +26,15 @@ const Constantes = {
     MAPAS: {
         NIVEL1:{
             TILEMAPJSON: 'mitilemapjson',
-            CAPAPLATAFORMAS: 'capapatrones', //Nombre de capa en JSON
-            CAPASUELO: 'suelo', //Nombre de capa en el tileset
+            CAPAPLATAFORMAS: 'fondo', //Nombre de capa en JSON
+            CAPASUELO: 'colisionables', //Nombre de capa en el tileset
             TAPAPOZOS: 'pozos', //Nombre de capa en el tileset
             CAPAROCAS: 'rocas', //Nombre de capa en el tileset
             ENEMIGOS: 'enemigos', //Nombre de capa en el tileset
             ENEMIGOSAIRE: 'enemigosaire', //Nombre de capa en el tileset
             LINGOTES: 'beskar' //Nombre de capa en el tileset
         },
-        TILESET:'tilesetnivel1' //Nombre del tileset en JSON
+        TILESET:'prueba' //Nombre del tileset en JSON
     },
     FONDOS:{
         NIVEL1: 'Arena',

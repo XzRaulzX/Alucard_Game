@@ -9,6 +9,7 @@ const Configuracion = {
 	scale: {
 		width: 1036, //Se establece un ratio de 2,16 aprox (ANDROID). Para WEB normal se podría haber usado 800x600 
 		height: 480,
+		zoom : 2
 	},
 	render: {
 		//pixelArt: true, //Activa pixelart

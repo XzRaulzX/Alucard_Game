@@ -1,3 +1,4 @@
+import { map } from "rxjs";
 import Constantes from "../constantes";
 import Jugador from '../gameobjects/jugador';
 import Miestilo from "../textos";
@@ -5,10 +6,11 @@ import Miestilo from "../textos";
 
 export default class Nivel1 extends Phaser.Scene {
 
-    public jugador!: Jugador;
 
+    public jugador!: Jugador;
     public ancho!: integer;
     public alto!: integer;
+
 
     constructor() {
         super(Constantes.ESCENAS.NIVEL1);
@@ -18,26 +20,33 @@ export default class Nivel1 extends Phaser.Scene {
     {
     }
 
-    create() //Crea escena
+    create() //Crea escena 
     {
         this.ancho = this.sys.game.canvas.width;
         this.alto = this.sys.game.canvas.height;
 
-        //Cargar Tilemap
+        const mapa = this.make.tilemap({ key: 'mitilemapjson'})
+        this.physics.world.bounds.setTo(0, 0, mapa.widthInPixels, mapa.heightInPixels)
+        const tileset = mapa.addTilesetImage('prueba', 'tilesetnivel1')
+        const colisionable = mapa.createLayer('colisionables', tileset)
+        
+        
+        mapa.setCollisionByExclusion([-1]);
+        
+        const fondo = mapa.createLayer('fondo', tileset)
 
-        //FONDO: IMPORTANTE - SE AÑADEN LAS CAPAS EN ORDEN: fondo, mapa, jugador
+        const debug = this.add.graphics().setAlpha(0.7)
+        colisionable.renderDebug(debug, {
+            tileColor: null,
+            collidingTileColor: new Phaser.Display.Color(243, 243, 48, 255),
+            faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+        })
 
-        //Se añade el mapa
+        
+        //fondo.setPosition(100)
 
-        //Se añaden las capas
 
-        //Se añade el jugador
-        this.jugador = new Jugador({
-            escena: this,
-            x: this.ancho / 2,
-            y: this.alto / 2,
-            textura: Constantes.JUGADOR.ID
-        });
+
 
 
         //Se establecen las animaciones (siempre se usa la misma plantilla)
@@ -63,28 +72,23 @@ export default class Nivel1 extends Phaser.Scene {
             repeat: -1 //Num repeticiones. -1: Repite siempre. Da igual lo que pongamos porque llamamos a las animaciones constantemente
         });
 
-        this.jugador.setGravity(0, 0); //Gravedad(X,Y). Se puede configurar la gravedad por objeto,
-        //pero la gravedad general establecida en la configuración prevalece  
+        //En su lugar, se añade el jugador desde el MAPA
+        mapa.findObject(Constantes.JUGADOR.ID, (d: any) => {
+            this.jugador = new Jugador({
+                escena: this,
+                x: d.x,
+                y: d.y,
+                textura: Constantes.JUGADOR.ID
+            });
+        });
 
-        //Se pueden extraer sprites del ATLAS
-        const sprite = this.add.sprite(200, 200, Constantes.JUGADOR.ID, 'sprite4');//Muestra sprite 4 del ATLAS
-        sprite.setInteractive();
-        sprite.anims.play(Constantes.JUGADOR.ANIMACION.ESPERAR, true);//Animará una única vez ya que repeat=0 en la configuración
-        sprite.scaleX = 2;
-        sprite.scaleY = 2;
+        this.physics.add.collider(this.jugador, colisionable);
+        
+        this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
+        this.cameras.main.startFollow(this.jugador);
 
-        //las cámaras siguen al jugador
-
-        //FÍSICAS OBJETOS
-        //Se añade la física del jugador con el nivel
-
-        console.log("Escena Nivel1 Creada");
-        this.add.text(0, 0, 'Escena Nivel1 Creada', Miestilo);
-
-        //Vuelta al menú principal
-        this.finJuego(sprite);
+        
     }
-
 
     override update() {//Se ejecuta cada x milisegundos
         this.jugador.update();//Se tiene que llamar al update de cada elemento
@@ -92,16 +96,6 @@ export default class Nivel1 extends Phaser.Scene {
 
     }
 
-    finJuego(letrerofin: Phaser.GameObjects.Sprite) {
-        letrerofin.on('pointerdown', () => {
-            this.vuelveMenu();
-        });
-    }
-
-    vuelveMenu() {
-        this.scene.stop(Constantes.ESCENAS.NIVEL1);
-        this.scene.start(Constantes.ESCENAS.MENU);
-    }
 
 
 }
