@@ -1,0 +1,14 @@
+{ "columns":448,
+ "image":"Mapa32x32.js",
+ "imageheight":6144,
+ "imagewidth":3584,
+ "margin":0,
+ "name":"Mapa32x32",
+ "spacing":0,
+ "tilecount":344064,
+ "tiledversion":"1.9.2",
+ "tileheight":8,
+ "tilewidth":8,
+ "type":"tileset",
+ "version":"1.9"
+}
