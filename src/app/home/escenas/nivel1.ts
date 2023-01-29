@@ -28,6 +28,12 @@ export default class Nivel1 extends Phaser.Scene {
         const mapa = this.make.tilemap({ key: 'mitilemapjson', tileWidth: 16, tileHeight: 16})
         this.physics.world.bounds.setTo(0, 0, mapa.widthInPixels, mapa.heightInPixels)
         const tileset = mapa.addTilesetImage('mapa', 'tilesetnivel1')
+
+   
+        const nubes = this.add.image(0, this.ancho, 'nubes')
+        .setOrigin(0, 1)
+        .setScrollFactor(0.25)
+
         const colisionable = mapa.createLayer('colisionable', tileset)
         colisionable.setVisible(false)
         

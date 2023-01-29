@@ -22,8 +22,8 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
         //Correcciones de "sprite", offset y tamaño general
         this.body.setSize(20, 50);//Se corrige tamaño de sprite
         this.body.setOffset(0, 0);//Corrige offset de los sprites (en este caso no hay desplazamiento)
-        this.scaleX = 1;
-        this.scaleY = 1;
+        this.scaleX = 0.8;
+        this.scaleY = 0.8;
 
         //Control entrada
         this.cursores = this.escena.input.keyboard.createCursorKeys();
