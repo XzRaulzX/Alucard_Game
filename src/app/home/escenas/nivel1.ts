@@ -25,25 +25,25 @@ export default class Nivel1 extends Phaser.Scene {
         this.ancho = this.sys.game.canvas.width;
         this.alto = this.sys.game.canvas.height;
 
-        const mapa = this.make.tilemap({ key: 'mitilemapjson'})
+        const mapa = this.make.tilemap({ key: 'mitilemapjson', tileWidth: 16, tileHeight: 16})
         this.physics.world.bounds.setTo(0, 0, mapa.widthInPixels, mapa.heightInPixels)
-        const tileset = mapa.addTilesetImage('prueba', 'tilesetnivel1')
-        const colisionable = mapa.createLayer('colisionables', tileset)
+        const tileset = mapa.addTilesetImage('mapa', 'tilesetnivel1')
+        const colisionable = mapa.createLayer('colisionable', tileset)
+        colisionable.setVisible(false)
         
         
         mapa.setCollisionByExclusion([-1]);
         
         const fondo = mapa.createLayer('fondo', tileset)
 
-        const debug = this.add.graphics().setAlpha(0.7)
+       /* const debug = this.add.graphics().setAlpha(0.7)
         colisionable.renderDebug(debug, {
             tileColor: null,
             collidingTileColor: new Phaser.Display.Color(243, 243, 48, 255),
             faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-        })
+        })*/
 
-        
-        //fondo.setPosition(100)
+
 
 
 
@@ -82,10 +82,12 @@ export default class Nivel1 extends Phaser.Scene {
             });
         });
 
-        this.physics.add.collider(this.jugador, colisionable);
+        
         
         this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
         this.cameras.main.startFollow(this.jugador);
+
+        this.physics.add.collider(this.jugador, colisionable);
 
         
     }

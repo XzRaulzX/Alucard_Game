@@ -23,8 +23,8 @@ export default class CargaDatos extends Phaser.Scene {
         /*this.load.image('tilesetnivel1', 'assets/imagenes/mapas/mapa2/Mapa.png');
         this.load.tilemapTiledJSON("mitilemapjson", 'assets/imagenes/mapas/mapa2/Mapa_Proyecto.json');*/
 
-        this.load.image('tilesetnivel1', 'assets/imagenes/mapas/mapaPrueba2/prueba.png');
-        this.load.tilemapTiledJSON("mitilemapjson", 'assets/imagenes/mapas/mapaPrueba2/prueba.json');
+        this.load.image('tilesetnivel1', 'assets/imagenes/mapas/mapa/mapa.png');
+        this.load.tilemapTiledJSON("mitilemapjson", 'assets/imagenes/mapas/mapa/mapa.json');
         
        
 
