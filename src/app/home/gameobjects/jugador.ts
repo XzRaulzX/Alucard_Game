@@ -52,7 +52,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
 
         if (this.teclaEspacio.isDown && this.body.blocked.down) {
             console.log("Salto...");
-            this.setVelocityY(this.velocidad * -1);
+            this.setVelocityY(this.velocidad * -1.08);
         }
     }
 

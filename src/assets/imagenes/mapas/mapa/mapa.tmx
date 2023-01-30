@@ -285,7 +285,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="jugador" offsetx="4" offsety="12">
-  <object id="1" x="2776.64" y="693.091">
+  <object id="1" x="138.652" y="2061.13">
    <point/>
   </object>
  </objectgroup>
