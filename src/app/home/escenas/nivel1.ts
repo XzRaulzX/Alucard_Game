@@ -25,30 +25,32 @@ export default class Nivel1 extends Phaser.Scene {
         this.ancho = this.sys.game.canvas.width;
         this.alto = this.sys.game.canvas.height;
 
-        const mapa = this.make.tilemap({ key: 'mitilemapjson', tileWidth: 16, tileHeight: 16})
+        const mapa = this.make.tilemap({ key: 'mitilemapjson', tileWidth: 16, tileHeight: 16 })
         this.physics.world.bounds.setTo(0, 0, mapa.widthInPixels, mapa.heightInPixels)
         const tileset = mapa.addTilesetImage('mapa', 'tilesetnivel1')
 
-   
+
         const nubes = this.add.image(0, this.ancho, 'nubes')
-        .setOrigin(0, 1)
-        .setScrollFactor(0.25)
+            .setOrigin(0, 1)
+            .setScrollFactor(0.25)
 
         const colisionable = mapa.createLayer('colisionable', tileset)
         colisionable.setVisible(false)
-        
-        
+
+
         mapa.setCollisionByExclusion([-1]);
-        
+
         const fondo = mapa.createLayer('fondo', tileset)
 
-       /* const debug = this.add.graphics().setAlpha(0.7)
+        /*
+        // Código para mostrar colisiones
+        const debug = this.add.graphics().setAlpha(0.7)
         colisionable.renderDebug(debug, {
             tileColor: null,
             collidingTileColor: new Phaser.Display.Color(243, 243, 48, 255),
             faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-        })*/
-
+        })
+        */
 
 
 
@@ -74,7 +76,7 @@ export default class Nivel1 extends Phaser.Scene {
                 prefix: "sprite", //Prefijo de los sprites
                 end: 31
             }),
-            frameRate: 20, //frames por segundo
+            frameRate: 30, //frames por segundo
             repeat: -1 //Num repeticiones. -1: Repite siempre. Da igual lo que pongamos porque llamamos a las animaciones constantemente
         });
 
@@ -88,14 +90,14 @@ export default class Nivel1 extends Phaser.Scene {
             });
         });
 
-        
-        
+
+
         this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
         this.cameras.main.startFollow(this.jugador);
 
         this.physics.add.collider(this.jugador, colisionable);
 
-        
+
     }
 
     override update() {//Se ejecuta cada x milisegundos
