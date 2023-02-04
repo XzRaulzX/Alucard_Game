@@ -92,8 +92,10 @@ export default class Nivel1 extends Phaser.Scene {
 
 
 
+        this.cameras.main.setZoom(1.5)
         this.cameras.main.setBounds(0, 0, mapa.widthInPixels, mapa.heightInPixels);
         this.cameras.main.startFollow(this.jugador);
+        
 
         this.physics.add.collider(this.jugador, colisionable);
 
