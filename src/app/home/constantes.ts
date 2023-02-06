@@ -1,30 +1,30 @@
 //Se recomienda crear constantes para evitar problemas con los identificadores
 //Muy importante: NO REPETIR NINGÚN literal
-const Constantes = {
-    EVENTOS:{
+export const Constantes = {
+    EVENTOS: {
         VIDAS: 'cambiaVidas',
         PUNTUACION: 'cambiaPuntuacion',
         BESKAR: 'cambiaBeskar'
     },
-    HUD:{
+    HUD: {
         VIDAS: 'VIDA '
-    },    
-    ESCENAS:{
+    },
+    ESCENAS: {
         CARGA: 'Carga',
         MENU: 'Menu',
         NIVEL1: 'Nivel1',
         HUD: 'HUD'
     },
-    REGISTRO:{
+    REGISTRO: {
         VIDAS: 'vidas',
         PUNTUACION: 'puntuacion',
         NOMBRENIVEL: 'nombrenivel',
-        BESKAR:'numbeskar',
+        BESKAR: 'numbeskar',
         BESKARMAX: 'numbeskarmax',
         GANADO: 'nivelpasado'
-    }, 
+    },
     MAPAS: {
-        NIVEL1:{
+        NIVEL1: {
             TILEMAPJSON: 'mitilemapjson',
             CAPAPLATAFORMAS: 'fondo', //Nombre de capa en JSON
             CAPASUELO: 'colisionable', //Nombre de capa en el tileset
@@ -34,77 +34,99 @@ const Constantes = {
             ENEMIGOSAIRE: 'enemigosaire', //Nombre de capa en el tileset
             LINGOTES: 'beskar' //Nombre de capa en el tileset
         },
-        TILESET:'prueba' //Nombre del tileset en JSON
+        TILESET: 'prueba' //Nombre del tileset en JSON
     },
-    FONDOS:{
+    FONDOS: {
         NIVEL1: 'Arena',
         BANTHA: 'Bantha',
-    }, 
-    FUENTES:{
+    },
+    FUENTES: {
         NOMBREFUENTE: 'fuentePixel'//id interno
 
     },
-    JUGADOR:{
+
+    ANIMACION: {
+        ESPERAR: 'esperar',
+        CORRER: 'correr',
+        SALTAR: 'saltar',
+        ATACAR: 'atacar'
+    },
+
+    DIRECCION: {
+        IZQUIERDA: 'izquierda',
+        DERECHA: 'derecha'
+    },
+
+    JUGADOR: {
         ID: 'jugador',//Nombre de objeto en el tileset
-        ANIMACION:{
-            ESPERAR: 'esperar', 
+        ANIMACION: {
+            ESPERAR: 'esperar',
             CORRER: 'correr',
             SALTAR: 'saltar',
-            GOLPEAR: 'golpear'
+            ATACAR: 'atacar'
         }
-    },     
+    },
 
-    FRANKY:{
+    SKELETON: {
+        ID: 'skeleton',
+        ANIMACION: {
+            ESPERAR: 'esperar',
+            CORRER: 'correr',
+            ATACAR: 'atacar'
+        }
+    },
+
+    FRANKY: {
         ID: 'power_1',//Nombre de objeto en el tileset
-        ANIMACION:{
-            ESPERAR: 'esperar', 
+        ANIMACION: {
+            ESPERAR: 'esperar',
             CORRER: 'correr',
             SALTAR: 'saltar',
-            GOLPEAR: 'golpear'
+            ATACAR: 'atacar'
         }
-    }, 
-    CANCERBERO:{
+    },
+    CANCERBERO: {
         ID: 'power_2',//Nombre de objeto en el tileset
-        ANIMACION:{
-            ESPERAR: 'esperar', 
+        ANIMACION: {
+            ESPERAR: 'esperar',
             CORRER: 'correr',
             SALTAR: 'saltar',
-            GOLPEAR: 'golpear'
+            ATACAR: 'atacar'
         }
-    }, 
+    },
 
 
-    DEMONIO:{
+    DEMONIO: {
         ID: 'power_3',//Nombre de objeto en el tileset
-        ANIMACION:{
-            ESPERAR: 'esperar', 
+        ANIMACION: {
+            ESPERAR: 'esperar',
             CORRER: 'correr',
             SALTAR: 'saltar',
-            GOLPEAR: 'golpear'
+            ATACAR: 'atacar'
         }
-    }, 
+    },
 
-    JAWA:{
+    JAWA: {
         ID: 'jawa',//Nombre de objeto en el tileset
         MUERTE: 'muerte',
-        ANIMACION:{
-            ESPERAR: 'esperarj', 
+        ANIMACION: {
+            ESPERAR: 'esperarj',
             CORRER: 'correrj',
             GOLPEAR: 'golpearj'
         }
     },
-    VOLADOR:{
+    VOLADOR: {
         ID: 'mynock',
-        ANIMACION:{
+        ANIMACION: {
             VOLAR: 'volar'
         }
     },
-    BESKAR:{
+    BESKAR: {
         ID: 'beskar',
         IMAGEN: 'beskar2png',
         IMAGENHUD: 'beskarpng'
-    },  
-    SONIDOS:{
+    },
+    SONIDOS: {
         JAWAATAQUE: 'utinni',
         JAWAMUERE: 'jawamuere',
         AY: 'ay',
@@ -112,7 +134,7 @@ const Constantes = {
         INTRO: 'intro',
         DUNAS: 'dunas'
     },
-    CONTROLES:{
+    CONTROLES: {
         ID: 'ControlGamepad',
         IMAGEN: 'ControlIMG'
     }

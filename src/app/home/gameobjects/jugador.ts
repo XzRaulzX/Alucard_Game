@@ -9,6 +9,8 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
 
     private escena: Nivel1;//para que coja las propiedades públicas
     private velocidad: number;
+    private hp: number;
+
 
     constructor(config: any) { //se le pasa escena para utilizar los objetos que contiene
         super(config.escena, config.x, config.y, config.texture);
@@ -17,7 +19,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
         this.escena.physics.world.enable(this);//Activo físicas para este objeto
         this.setCollideWorldBounds(true);//Para que no se salga del mapa
         this.escena.add.existing(this);//Añade objeto a escena
-        this.velocidad = 300;//pixels por segundo (aprox)
+        this.velocidad = 250;//pixels por segundo (aprox)
 
         //Correcciones de "sprite", offset y tamaño general
         this.body.setSize(20, 50);//Se corrige tamaño de sprite
@@ -29,31 +31,56 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
         this.cursores = this.escena.input.keyboard.createCursorKeys();
         this.teclaEspacio = this.escena.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+        this.hp = 100;
+
+        this.crearAnimacion();
     }
 
     override update() {
-        if (this.cursores.left.isDown) { 
-            console.log("Izquierda...");
+        this.setMovimiento();
+    }
+
+    private setMovimiento(): void {
+        if (this.cursores.left.isDown) {
             this.setVelocityX(this.velocidad * -1);
             this.flipX = true;
             this.anims.play(Constantes.JUGADOR.ANIMACION.CORRER, true);
         }
         else if (this.cursores.right.isDown) {
-            console.log("Derecha...");
             this.setVelocityX(this.velocidad);
             this.flipX = false;
             this.anims.play(Constantes.JUGADOR.ANIMACION.CORRER, true);
         }
         else { // Si no están activadas izquierda y derecha: reposo
             this.setVelocityX(0);
-            this.flipX = true;
             this.anims.play(Constantes.JUGADOR.ANIMACION.ESPERAR, true);
         }
 
         if (this.teclaEspacio.isDown && this.body.blocked.down) {
-            console.log("Salto...");
-            this.setVelocityY(this.velocidad * -1.08);
+            this.setVelocityY(this.velocidad * -1.2);
         }
+    }
+
+    private crearAnimacion(): void {
+        this.anims.create({
+            key: Constantes.JUGADOR.ANIMACION.ESPERAR,
+            frames: this.anims.generateFrameNames(Constantes.JUGADOR.ID, {
+                start: 1,
+                prefix: "sprite", //Prefijo de los sprites
+                end: 2
+            }),
+            frameRate: 1, //frames por segundo
+        });
+
+        this.anims.create({
+            key: Constantes.JUGADOR.ANIMACION.CORRER,
+            frames: this.anims.generateFrameNames(Constantes.JUGADOR.ID, {
+                start: 16,
+                prefix: "sprite", //Prefijo de los sprites
+                end: 31
+            }),
+            frameRate: 30, //frames por segundo
+        });
     }
 
 
