@@ -12,7 +12,7 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
 
     private escena: Nivel1;//para que coja las propiedades públicas
     private velocidad: number;
-    private danyo: number;
+    private _danyo: number;
 
     constructor(config: any) {
         super(config.escena, config.x, config.y, config.texture);
@@ -28,12 +28,13 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
         this.scaleX = 0.9;
         this.scaleY = 0.9;
 
-        this.danyo = 20;
+        this._danyo = 20;
 
         this.crearAnimacion();
     }
 
     override update(distanciaAJugador: number) {
+        //console.log(this.anims.getFrameName());
         //this.y = 2080;
         if (this.body.velocity.x === 0)
             this.setMovimiento(Constantes.DIRECCION.IZQUIERDA);
@@ -51,7 +52,14 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
                 this.setMovimiento(Constantes.DIRECCION.DERECHA);
         } else
             this.anims.play(Constantes.ANIMACION.CORRER, true);
+    }
 
+
+    public get danyo(): number {
+        return this._danyo;
+    }
+    public set danyo(value: number) {
+        this._danyo = value;
     }
 
 

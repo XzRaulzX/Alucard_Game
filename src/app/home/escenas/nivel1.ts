@@ -52,7 +52,7 @@ export default class Nivel1 extends Phaser.Scene {
         // Añade al objetos
 
         this.anyadirJugador();
-        
+
         this.skeleton2 = new Enemigo({
             escena: this,
             x: 900,
@@ -75,7 +75,8 @@ export default class Nivel1 extends Phaser.Scene {
         this.physics.add.collider(this.jugador, this.colisionable);
         //this.physics.add.collider(this.enemigos, this.colisionable);
         this.physics.add.collider(this.skeleton2, this.colisionable);
-       // this.physics.add.overlap();
+
+        this.physics.add.overlap(this.jugador, this.skeleton2, this.ataqueEnemigo as ArcadePhysicsCallback, undefined, this,);
 
 
 
@@ -84,6 +85,8 @@ export default class Nivel1 extends Phaser.Scene {
     override update() {//Se ejecuta cada x milisegundos
         this.jugador.update();//Se tiene que llamar al update de cada elemento
         this.skeleton2.update(this.skeleton2.x - this.jugador.x);
+        console.log("vida: " + this.jugador.vida);
+
 
 
     }
@@ -126,6 +129,20 @@ export default class Nivel1 extends Phaser.Scene {
         this.cameras.main.setZoom(1.5)
         this.cameras.main.setBounds(0, 0, this.mapa.widthInPixels, this.mapa.heightInPixels);
         this.cameras.main.startFollow(this.jugador);
+    }
+
+    private ataqueEnemigo(): void {
+        if (!this.jugador.atacado && (this.skeleton2.anims.getFrameName() === 'sp15')) {
+            this.jugador.vida -= this.skeleton2.danyo;
+            this.jugador.atacado = true;
+            this.jugador.escena.time.addEvent({
+                delay: 500,
+                callback: () => {
+                    this.jugador.atacado = false;
+                    //this.jugador.vida -= this.skeleton2.danyo;
+                }
+            });
+        }
     }
 
 }
