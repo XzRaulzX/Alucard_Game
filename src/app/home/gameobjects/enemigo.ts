@@ -34,8 +34,7 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
     }
 
     override update(distanciaAJugador: number) {
-        //console.log(this.anims.getFrameName());
-        //this.y = 2080;
+        
         if (this.body.velocity.x === 0)
             this.setMovimiento(Constantes.DIRECCION.IZQUIERDA);
         if (this.body.blocked.left)

@@ -20,7 +20,7 @@ export default class Nivel1 extends Phaser.Scene {
     private jugador!: Jugador;
     private skeleton!: Enemigo;
     private skeleton2!: Enemigo;
-    aEnemigos !: Array<Enemigo>;
+    private aEnemigos !: Array<Enemigo>;
 
     private enemigos!: Phaser.Physics.Arcade.Group;
 
@@ -64,7 +64,10 @@ export default class Nivel1 extends Phaser.Scene {
             runChildUpdate: true
         });
 
-        //this.anyadirEnemigos();
+
+        this.anyadirEnemigos();
+
+    
 
 
         // Configura la cámara
@@ -73,7 +76,7 @@ export default class Nivel1 extends Phaser.Scene {
 
         this.colisionable.setVisible(false);
         this.physics.add.collider(this.jugador, this.colisionable);
-        //this.physics.add.collider(this.enemigos, this.colisionable);
+        this.physics.add.collider(this.enemigos, this.colisionable);
         this.physics.add.collider(this.skeleton2, this.colisionable);
 
         this.physics.add.overlap(this.jugador, this.skeleton2, this.ataqueEnemigo as ArcadePhysicsCallback, undefined, this,);
@@ -85,6 +88,9 @@ export default class Nivel1 extends Phaser.Scene {
     override update() {//Se ejecuta cada x milisegundos
         this.jugador.update();//Se tiene que llamar al update de cada elemento
         this.skeleton2.update(this.skeleton2.x - this.jugador.x);
+        this.enemigos.children.entries.map(enemigo => {
+            enemigo.update(enemigo.body.gameObject.x - this.jugador.x);
+        });
         console.log("vida: " + this.jugador.vida);
 
 
@@ -105,7 +111,6 @@ export default class Nivel1 extends Phaser.Scene {
     }
 
     private anyadirEnemigos(): void {
-        let i: number = 1;
         const enemigos = this.mapa.getObjectLayer('enemigos').objects as any[];
 
 
@@ -132,7 +137,7 @@ export default class Nivel1 extends Phaser.Scene {
     }
 
     private ataqueEnemigo(): void {
-        if (!this.jugador.atacado && (this.skeleton2.anims.getFrameName() === 'sp15')) {
+        /*if (!this.jugador.atacado && (this.skeleton2.anims.getFrameName() === 'sp15')) {
             this.jugador.vida -= this.skeleton2.danyo;
             this.jugador.atacado = true;
             this.jugador.escena.time.addEvent({
@@ -142,7 +147,7 @@ export default class Nivel1 extends Phaser.Scene {
                     //this.jugador.vida -= this.skeleton2.danyo;
                 }
             });
-        }
+        }*/
     }
 
 }
