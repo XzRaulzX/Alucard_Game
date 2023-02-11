@@ -34,7 +34,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
         this.cursores = this._escena.input.keyboard.createCursorKeys();
         this.teclaEspacio = this._escena.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        this._vida = 100;
+        this._vida = 1000;
         this._atacado = false;
 
         this.crearAnimacion();

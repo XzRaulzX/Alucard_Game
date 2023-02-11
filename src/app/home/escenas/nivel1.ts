@@ -1,3 +1,4 @@
+import { LoadChildrenCallback } from "@angular/router";
 import { Console } from "console";
 import { map } from "rxjs";
 import Constantes from "../constantes";
@@ -19,10 +20,8 @@ export default class Nivel1 extends Phaser.Scene {
 
     private jugador!: Jugador;
     private skeleton!: Enemigo;
-    private skeleton2!: Enemigo;
+    //private skeleton2!: Enemigo;
     private aEnemigos !: Array<Enemigo>;
-
-    private enemigos!: Phaser.Physics.Arcade.Group;
 
     constructor() {
         super(Constantes.ESCENAS.NIVEL1);
@@ -53,21 +52,29 @@ export default class Nivel1 extends Phaser.Scene {
 
         this.anyadirJugador();
 
-        this.skeleton2 = new Enemigo({
+        /*this.skeleton2 = new Enemigo({
             escena: this,
             x: 900,
             y: 2070,
-            textura: Constantes.JUGADOR.ID
-        });
+        });*/
 
-        this.enemigos = this.physics.add.group({
-            runChildUpdate: true
-        });
+        this.aEnemigos = Array<Enemigo>();
+
+        // this.aEnemigos = [new Enemigo({ escena: this, x: 700, y: 2070, texture: Constantes.SKELETON.ID })];
+        this.aEnemigos = [new Enemigo({ escena: this, x: 700, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 750, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 850, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 800, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 900, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 950, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 1000, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 1050, y: 2070, texture: Constantes.SKELETON.ID }),
+        new Enemigo({ escena: this, x: 2000, y: 2070, texture: Constantes.SKELETON.ID })]
 
 
         this.anyadirEnemigos();
 
-    
+
 
 
         // Configura la cámara
@@ -76,22 +83,39 @@ export default class Nivel1 extends Phaser.Scene {
 
         this.colisionable.setVisible(false);
         this.physics.add.collider(this.jugador, this.colisionable);
-        this.physics.add.collider(this.enemigos, this.colisionable);
-        this.physics.add.collider(this.skeleton2, this.colisionable);
+        //this.physics.add.collider(this.skeleton2, this.colisionable);
 
-        this.physics.add.overlap(this.jugador, this.skeleton2, this.ataqueEnemigo as ArcadePhysicsCallback, undefined, this,);
+        this.aEnemigos.forEach((enemigo) => {
+            this.physics.add.collider(enemigo, this.colisionable);
+            this.physics.add.overlap(this.jugador, enemigo, this.ataqueEnemigo as ArcadePhysicsCallback, undefined, this);
+        });
 
 
+
+        this.aEnemigos.forEach((enemigo) => {
+
+        });
+
+
+        //this.physics.add.overlap(this.jugador, this.aEnemigos, this.ataqueEnemigo as ArcadePhysicsCallback, undefined, this,);
+
+        console.log(this.jugador.texture.getFrameNames());
 
     }
 
     override update() {//Se ejecuta cada x milisegundos
         this.jugador.update();//Se tiene que llamar al update de cada elemento
-        this.skeleton2.update(this.skeleton2.x - this.jugador.x);
-        this.enemigos.children.entries.map(enemigo => {
-            enemigo.update(enemigo.body.gameObject.x - this.jugador.x);
+
+
+
+
+        //this.skeleton2.update(this.skeleton2.x - this.jugador.x);
+
+        this.aEnemigos.forEach((enemigo) => {
+            enemigo.update(enemigo.x - this.jugador.x);
         });
-        console.log("vida: " + this.jugador.vida);
+
+
 
 
 
@@ -103,31 +127,15 @@ export default class Nivel1 extends Phaser.Scene {
                 escena: this,
                 x: d.x,
                 y: d.y,
-                textura: Constantes.JUGADOR.ID
+                textura: 'df'
             });
 
         });
-
+        this.jugador.texture;
     }
 
     private anyadirEnemigos(): void {
-        const enemigos = this.mapa.getObjectLayer('enemigos').objects as any[];
 
-
-        enemigos.forEach((enemigo) => {
-            if (enemigo.name === 'skeleton') {
-                this.enemigos.add(
-                    this.skeleton = new Enemigo({
-                        escena: this,
-                        x: enemigo.x,
-                        y: enemigo.y,
-                        textura: Constantes.SKELETON.ID
-                    })
-                );
-                console.log("skeleton " + 1 + ": " + enemigo.name);
-            }
-
-        });
     }
 
     private setCamara(): void {
@@ -136,18 +144,25 @@ export default class Nivel1 extends Phaser.Scene {
         this.cameras.main.startFollow(this.jugador);
     }
 
-    private ataqueEnemigo(): void {
-        /*if (!this.jugador.atacado && (this.skeleton2.anims.getFrameName() === 'sp15')) {
-            this.jugador.vida -= this.skeleton2.danyo;
-            this.jugador.atacado = true;
-            this.jugador.escena.time.addEvent({
+    private ataqueEnemigo(enemigo: any): void {
+        if (!enemigo._atacado && (enemigo.anims.getFrameName() == 'sprite1' || enemigo.anims.getFrameName() == 'sprite2')) {
+            this.jugador.vida -= 20;
+            console.log(this.jugador.vida);
+            enemigo._atacado = true;
+            this.jugador.tint = 0xff0000;
+
+
+            enemigo.escena.time.addEvent({
                 delay: 500,
                 callback: () => {
-                    this.jugador.atacado = false;
-                    //this.jugador.vida -= this.skeleton2.danyo;
+                    enemigo._atacado = false;
+                    this.jugador.tint = 0xffffff;
                 }
             });
-        }*/
+        }
+
+
+
     }
 
 }

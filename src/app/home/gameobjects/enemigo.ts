@@ -2,6 +2,7 @@ import { constants } from 'buffer';
 import { repeat } from 'rxjs';
 import Constantes from '../constantes';
 import Nivel1 from '../escenas/nivel1';
+import Jugador from './jugador';
 
 export class Enemigo extends Phaser.Physics.Arcade.Sprite {
 
@@ -13,6 +14,11 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
     private escena: Nivel1;//para que coja las propiedades públicas
     private velocidad: number;
     private _danyo: number;
+    private _distanciaAjugador: number;
+    private _atacando: boolean;
+
+
+
 
     constructor(config: any) {
         super(config.escena, config.x, config.y, config.texture);
@@ -27,32 +33,49 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
         this.body.setOffset(0, 0);//Corrige offset de los sprites (en este caso no hay desplazamiento)
         this.scaleX = 0.9;
         this.scaleY = 0.9;
-
+        this._atacando = false;
         this._danyo = 20;
 
         this.crearAnimacion();
+        this._distanciaAjugador = 50;
     }
 
     override update(distanciaAJugador: number) {
-        
+        this._distanciaAjugador = distanciaAJugador;
         if (this.body.velocity.x === 0)
             this.setMovimiento(Constantes.DIRECCION.IZQUIERDA);
-        if (this.body.blocked.left)
+        else if (this.body.blocked.left)
             this.setMovimiento(Constantes.DIRECCION.DERECHA);
         else if (this.body.blocked.right) {
             this.setMovimiento(Constantes.DIRECCION.IZQUIERDA);
         }
 
         if (distanciaAJugador < 80 && distanciaAJugador > -80) {
-            this.anims.play(Constantes.ANIMACION.ATACAR, true);
+            this.anims.play(Constantes.SKELETON.ANIMACION.ATACAR, true);
             if (distanciaAJugador < 80 && distanciaAJugador > 50)
                 this.setMovimiento(Constantes.DIRECCION.IZQUIERDA);
             else if (distanciaAJugador > -80 && distanciaAJugador < -50)
                 this.setMovimiento(Constantes.DIRECCION.DERECHA);
-        } else
-            this.anims.play(Constantes.ANIMACION.CORRER, true);
+        } else {
+            this.anims.play(Constantes.SKELETON.ANIMACION.CORRER, true);
+        }
+
     }
 
+
+    public get distanciaAjugador(): number {
+        return this._distanciaAjugador;
+    }
+    public set distanciaAjugador(value: number) {
+        this._distanciaAjugador = value;
+    }
+
+    public get atacando(): boolean {
+        return this._atacando;
+    }
+    public set atacando(value: boolean) {
+        this._atacando = value;
+    }
 
     public get danyo(): number {
         return this._danyo;
@@ -61,6 +84,14 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
         this._danyo = value;
     }
 
+    public atacarJugador(jugador: any): void {
+        console.log(this.anims.getFrameName());
+        
+        /*
+        if (this.anims.getFrameName() === "sp14" || this.anims.getFrameName() === "sp15")
+            console.log("Atacando");*/
+            
+    }
 
 
     setMovimiento(direccion: string) {
@@ -82,22 +113,20 @@ export class Enemigo extends Phaser.Physics.Arcade.Sprite {
                 prefix: "sp",
                 end: 9
             }),
-            frameRate: 10,
-            repeat: -1
+            frameRate: 10
         });
         this.anims.create({
             key: Constantes.SKELETON.ANIMACION.ESPERAR,
             frames: this.anims.generateFrameNames(Constantes.SKELETON.ID, {
-                start: 1,
+                start: 4,
                 prefix: "sp",
-                end: 2
+                end: 5
             }),
-            frameRate: 2,
-            repeat: -1
+            frameRate: 2
         });
 
         this.anims.create({
-            key: Constantes.ANIMACION.ATACAR,
+            key: Constantes.SKELETON.ANIMACION.ATACAR,
             frames: this.anims.generateFrameNames(Constantes.SKELETON.ID, {
                 start: 10,
                 prefix: "sp",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="240" height="135" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="73">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="240" height="135" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="74">
  <editorsettings>
   <export target="mapa.json" format="json"/>
  </editorsettings>
@@ -290,19 +290,7 @@
   </object>
  </objectgroup>
  <objectgroup id="9" name="enemigos">
-  <object id="60" name="e1" x="361.333" y="2082.67">
-   <point/>
-  </object>
-  <object id="67" name="skeleton" x="80" y="2082.67">
-   <point/>
-  </object>
-  <object id="69" name="skeleton" x="532" y="2077.33">
-   <point/>
-  </object>
-  <object id="70" name="skeleton" x="696" y="2084">
-   <point/>
-  </object>
-  <object id="71" name="skeleton" x="1210.67" y="2088.67">
+  <object id="73" name="skeleton" x="810.667" y="2082.67">
    <point/>
   </object>
  </objectgroup>
